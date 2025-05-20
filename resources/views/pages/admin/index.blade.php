@@ -96,7 +96,7 @@
 
                                             <a class="flex items-center py-1.5 px-5 text-base text-red-500 hover:bg-slate-100 rounded"
                                                 href="#">
-                                                {{-- <svg class="h-4 w-4 me-2.5" xmlns="http://www.w3.org/2000/svg"
+                                                <svg class="h-4 w-4 me-2.5" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                     class="feather feather-trash-2 icon-xxs icon me-2">
@@ -108,7 +108,7 @@
                                                     </line>
                                                     <line x1="14" y1="11" x2="14" y2="17">
                                                     </line>
-                                                </svg> --}}
+                                                </svg>
                                                 <span class="">Lorem.</span>
                                             </a>
                                         </div>
@@ -151,7 +151,7 @@
                         <h4 class="text-base text-gray-800">User Active</h4>
                     </div>
                     <div class="text-end">
-                        <a href="{{ route('dashboard.user.index') }}" class="font-semibold text-ijo text-sm hover:text-teal-800">View All <svg class="h-5 w-5 inline"
+                        <a href="{{ route('dashboard.user.index') }}" class="font-semibold text-biru text-sm hover:text-blue-800">View All <svg class="h-5 w-5 inline"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="feather feather-arrow-right ms-1 icon-xxs">

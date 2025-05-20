@@ -11,7 +11,7 @@
                         <div class="shadow-md p-12 rounded-s xl:col-span-5 md:col-span-6">
                             <div class="mb-12">
                                 <a href="{{ route('home') }}">
-                                    <p class="text-2xl text-ijo font-bold text-center">MedisMap</p>
+                                    <p class="text-2xl text-biru font-bold text-center">NaviTal</p>
                                 </a>
                             </div>
 
@@ -27,9 +27,9 @@
                                 </div>
                             @endif
 
-                            <h6 class="text-base/[1.6] font-semibold text-ijo mb-0 mt-4">Welcome back!</h6>
-                            <p class="text-ijo text-sm/[1.6] mt-1 mb-6">Enter your email address and password to access
-                                MedisMap.</p>
+                            <h6 class="text-base/[1.6] font-semibold text-biru mb-0 mt-4">Welcome back!</h6>
+                            <p class="text-biru text-sm/[1.6] mt-1 mb-6">Enter your email and password to access
+                                Navital Dashboard.</p>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="mb-4">
@@ -41,9 +41,9 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <a href="#"
+                                    {{-- <a href="#"
                                         class="float-right text-red-500 text-xs border-b border-dashed pb-1 ms-1">Forgot
-                                        your password?</a>
+                                        your password?</a> --}}
                                     <label for="password" class="block text-sm font-medium mb-1 text-gray-500">Password
                                         <small>*</small></label>
                                     <input type="password" id="password" name="password"
@@ -53,7 +53,7 @@
 
                                 <div class="mb-0 text-center">
                                     <button
-                                        class="w-full bg-red-400 text-white font-medium leading-6 text-center align-middle select-none py-2 px-4 text-base rounded-md transition-all hover:shadow-lg hover:shadow-ijo/30 hover:bg-red-500"
+                                        class="w-full bg-blue-500 text-white font-medium leading-6 text-center align-middle select-none py-2 px-4 text-base rounded-md transition-all hover:shadow-lg hover:shadow-biru/30 hover:bg-blue-700"
                                         type="submit">Log In
                                     </button>
                                 </div>
@@ -61,10 +61,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full text-center">
+                {{-- <div class="w-full text-center">
                     <p class="text-gray-500 leading-6 text-base">Don't have an account? <a href="{{ route('register') }}"
                             class="text-red-400 font-semibold ms-1 hover:text-red-500">Sign Up</a></p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

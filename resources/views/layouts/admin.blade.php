@@ -36,7 +36,7 @@
                     <ul id="navbar-navlist"
                         class="grow flex flex-col lg:flex-row lg:items-center lg:justify-center mt-4 lg:mt-0">
                         <li class="nav-item pe-4">
-                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-gray-700 hover:text-ijo"
+                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru"
                                 href="{{ route('dashboard.dashboard') }}">
                                 <span class="shrink-0 me-2">
                                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
@@ -55,7 +55,7 @@
                             </a>
                         </li>
                         <li class="nav-item pe-4">
-                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-gray-700 hover:text-ijo transition-all"
+                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru transition-all"
                                 href="{{ route('dashboard.category.index') }}">
                                 <span class="shrink-0 me-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item pe-4">
-                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-gray-700 hover:text-ijo transition-all"
+                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru transition-all"
                                 href="{{ route('dashboard.hospital.index') }}">
                                 <span class="shrink-0 me-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item pe-4">
-                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-gray-700 hover:text-ijo transition-all"
+                            <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru transition-all"
                                 href="{{ route('dashboard.user.index') }}">
                                 <span class="shrink-0 me-2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
@@ -113,7 +113,7 @@
                                         </div> --}}
                                     </div>
                                     <div class="hidden lg:block grow ms-1 leading-normal">
-                                        <span class="block text-sm text-ijo font-medium hover:text-ijo">{{  Auth::user()->name  }}</span>
+                                        <span class="block text-sm text-biru font-medium">{{  Auth::user()->name  }}</span>
                                         <span class="block text-gray-400 text-xs">{{ Auth::user()->roles  }}</span>
                                     </div>
                                 </div>
@@ -123,8 +123,8 @@
                                 class="hidden opacity-0 mt-4 fc-dropdown-open:opacity-100 fc-dropdown-open:translate-y-0 translate-y-3 origin-center transition-all bg-white rounded-lg shadow-lg border p-2 w-48 space-y-1.5">
 
                                 <!-- Dropdown item -->
-                                <div class="nav-item rounded hover:bg-teal-50 transition-all">
-                                    <a class="flex items-center text-black hover:text-ijo !p-2" href="{{ route('dashboard.dashboard') }}">
+                                <div class="nav-item rounded hover:bg-blue-50 transition-all">
+                                    <a class="flex items-center text-black hover:text-biru !p-2" href="{{ route('dashboard.dashboard') }}">
                                         <svg class="h-4 w-4 me-2" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -140,11 +140,11 @@
                                 <hr class="-mx-2 my-2">
 
                                 <!-- Dropdown item -->
-                                <div class="nav-item rounded hover:bg-teal-50 transition-all">
+                                <div class="nav-item rounded hover:bg-red-50 transition-all">
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
 
-                                        <a class="text-black !p-2 flex items-center hover:text-ijo" href="{{ route('logout') }}"
+                                        <a class="text-black !p-2 flex items-center hover:text-red-700" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); this.closest('form').submit();">
                                             <svg class="h-4 w-4 me-2" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -183,7 +183,7 @@
                     <div class="flex items-center gap-3">
                         <div>
                             <a href="https://www.facebook.com/fathi.adlikhalafah">
-                                <svg class="w-5 h-5 text-gray-500 hover:text-ijo transition-all"
+                                <svg class="w-5 h-5 text-gray-500 hover:text-biru transition-all"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -192,7 +192,7 @@
                         </div>
                         <div>
                             <a href="https://www.instagram.com/fathikhlfh/?hl=en">
-                                <svg class="w-5 h-5 text-gray-500 hover:text-ijo transition-all"
+                                <svg class="w-5 h-5 text-gray-500 hover:text-biru transition-all"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8"/><path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011">
@@ -202,7 +202,7 @@
                         </div>
                         <div>
                             <a href="https://www.linkedin.com/in/fathiadlikhalafah/">
-                                <svg class="w-5 h-5 text-gray-500 hover:text-ijo transition-all"
+                                <svg class="w-5 h-5 text-gray-500 hover:text-biru transition-all"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path
@@ -216,11 +216,11 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-ijo text-sm font-bold">
+                    <p class="text-biru text-sm font-bold">
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        © MedisMap. All rights reserved. 
+                        © Navital. All rights reserved. 
                     </p>
                 </div>
             </div>

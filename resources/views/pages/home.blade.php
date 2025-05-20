@@ -40,7 +40,7 @@
                                 </button>
                               </div>
                             </div>
-                          </form>
+                          {{-- </form> --}}
                           <!-- End Form -->
                         </div>
                       </div>

@@ -9,16 +9,16 @@
 
             <div class="py-14">
                 <div class="flex flex-wrap items-center gap-2 bg-gray-50 py-2 px-3 text-black">
-                    <a href="{{ route('home') }}" class="transition-all text-teal-400 hover:text-ijo">Home</a> /
-                    <a href="{{ route('search') }}" class="transition-all text-teal-400 hover:text-ijo">Detail</a> /
-                    <p class="text-teal-400">{{ $hospital->name }}</p>
+                    <a href="{{ route('home') }}" class="transition-all text-biru hover:text-blue-800">Home</a> /
+                    <a href="{{ route('search') }}" class="transition-all text-biru hover:text-blue-800">Detail</a> /
+                    <p class="text-biru">{{ $hospital->name }}</p>
                 </div>
             </div>
 
             <div class="lg:w-4/5">
-                <span class="bg-teal-50 text-ijo font-medium rounded-md text-xs py-1 px-2"><a
+                <span class="bg-blue-50 text-biru font-medium rounded-md text-xs py-1 px-2"><a
                         href="#">{{ $hospital->category->name }}</a></span>
-                <h1 class="lg:text-5xl/snug text-3xl/snug mt-3 text-ijo">{{ $hospital->category->name }} {{ $hospital->name }}</h1>
+                <h1 class="lg:text-5xl/snug text-3xl/snug mt-3 text-biru">{{ $hospital->category->name }} {{ $hospital->name }}</h1>
             </div>
         </div>
     </section>
@@ -43,19 +43,71 @@
                 <p class="text-gray-500 font-light text-sm mt-2"></i>{{ $hospital->address }}</p>
             </div>
 
-            <div class="mt-4">
+            <h2 class="text-xl font-bold mt-6">Ulasan</h2>
+
+            @foreach ($hospital->reviews as $review)
+                <div class="my-4 p-4 border rounded bg-gray-100">
+                    <strong>
+                        {{ substr($review->name, 0, 1) . str_repeat('*', strlen($review->name) - 2) . substr($review->name, -1) }}
+                    </strong>
+                    <div class="text-yellow-400">
+                        @for ($i = 0; $i < 5; $i++)
+                            @if ($i < $review->rating)
+                                ★
+                            @else
+                                ☆
+                            @endif
+                        @endfor
+                        <span class="text-gray-600 ml-2">{{ $review->rating }}/5</span>
+                    </div>
+                    <p>{{ $review->comment }}</p>
+                    <p class="text-xs text-gray-500">{{ $review->created_at->diffForHumans() }}</p>
+                </div>
+            @endforeach
+
+            <h3 class="text-lg font-semibold mt-8">Beri Ulasan</h3>
+
+            <form action="{{ route('review.store', $hospital->id) }}" method="POST" class="mt-4">
+                @csrf
+                <div class="mb-4">
+                    <label for="name" class="block font-medium">Nama Anda</label>
+                    <input type="text" name="name" id="name" required class="w-full p-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="rating" class="block font-medium">Rating</label>
+                    <select name="rating" id="rating" required class="w-full p-2 border rounded">
+                        <option value="">-- Pilih --</option>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="comment" class="block font-medium">Komentar</label>
+                    <textarea name="comment" id="comment" rows="4" required class="w-full p-2 border rounded"></textarea>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    Kirim Review
+                </button>
+            </form>
+
+            <div class="mt-4 flex gap-4">
                 <button id="getUserLocationButton" class="bg-ijo hover:bg-teal-800 text-white font-bold py-2 px-4 rounded">
                     Dapatkan Lokasi Pengguna
+                </button>
+
+                <button id="getRouteBtn" class="bg-ijo hover:bg-teal-800 text-white font-bold py-2 px-4 rounded">
+                    Dapatkan Rute
                 </button>
             </div>
 
             <div class="col-12">
                 <div class="mb-3 mt-5">
-                    <div style="height: 300px">
-                        <div id="map" class="rounded"></div>
+                    <div class="h-[500px]"> <!-- Tinggi diperbesar -->
+                        <div id="map" class="rounded w-full h-full"></div> <!-- Tambahkan h-full -->
                     </div>
                 </div>
-            </div> 
+            </div>
             
             <div id="route-steps" class="mt-4"></div>
 
@@ -239,447 +291,90 @@
     </style>
 @endpush
 
-{{-- @push('after-script')
-    <script
-        src="https://polyfill.io/v3/polyfill.min.js?features=default">
-    </script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabNyMuVT8g7rBRF5fcb7ZjAV8ZYuXDls&callback=initAutocomplete&libraries=places&v=weekly"
-        defer>
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('pac-input');
-
-            searchInput.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                }
-            });
-        });
-
-        function initAutocomplete() {
-
-            const hospitalData = {!! isset($hospital) ? json_encode($hospital) : 'null' !!};
-            const hospitalLatitude = parseFloat({{ $hospital->latitude }});
-            const hospitalLongitude = parseFloat({{ $hospital->longitude }});
-
-            // Lokasi Marker Fasilitas Kesehatan
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: {
-                    lat: hospitalLatitude,
-                    lng: hospitalLongitude,
-                },
-                zoom: 12,
-                mapTypeId: "roadmap",
-            });
-
-            let markers = [];
-
-            const existingMarker = new google.maps.Marker({
-                map,
-                position: {
-                    lat: hospitalLatitude,
-                    lng: hospitalLongitude,
-                },
-                title: "Lokasi Fasilitas Kesehatan", 
-            });
-
-            markers.push(existingMarker);
-
-
-            const input = document.getElementById("pac-input");
-            const searchBox = new google.maps.places.SearchBox(input, {
-                componentRestrictions: {
-                    country: "ID"
-                }
-            });
-
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-            map.addListener("bounds_changed", () => {
-                searchBox.setBounds(map.getBounds());
-            });
-
-            function createInfoWindow(hospital) {
-                return new google.maps.InfoWindow({
-                    content: `
-                        <h6>${hospital.category.name} ${hospital.name}</h6>
-                        <p>${hospital.address}</p>`,
-                });
-            }
-
-            markers.forEach((marker, index) => {
-                const infowindow = createInfoWindow(hospitalData);
-
-                marker.addListener("click", () => {
-                    infowindow.open(map, marker);
-                });
-            });
-
-            searchBox.addListener("places_changed", () => {
-                markers.forEach((marker) => {
-                    marker.setMap(null);
-                });
-                markers = [];
-
-                const places = searchBox.getPlaces();
-
-                if (places.length == 0) {
-                    return;
-                }
-
-                const bounds = new google.maps.LatLngBounds();
-
-                places.forEach((place) => {
-                    if (!place.geometry || !place.geometry.location) {
-                        console.log("Returned place contains no geometry");
-                        return;
-                    }
-
-                    const icon = {
-                        url: place.icon,
-                        size: new google.maps.Size(71, 71),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(17, 34),
-                        scaledSize: new google.maps.Size(25, 25),
-                    };
-
-                    const newMarker = new google.maps.Marker({
-                        map,
-                        icon,
-                        title: place.name,
-                        position: place.geometry.location,
-                    });
-
-                    markers.push(newMarker);
-
-                    if (place.geometry.viewport) {
-                        bounds.union(place.geometry.viewport);
-                    } else {
-                        bounds.extend(place.geometry.location);
-                    }
-
-                    const selectedLocation = {
-                        latitude: place.geometry.location.lat(),
-                        longitude: place.geometry.location.lng()
-                    };
-
-                    document.getElementById("latitude").value = selectedLocation.latitude;
-                    document.getElementById("longitude").value = selectedLocation.longitude;
-
-                    bounds.extend(place.geometry.location);
-                });
-
-                map.fitBounds(bounds);
-            });
-
-            map.addListener("click", (event) => {
-                const selectedLocation = {
-                    latitude: event.latLng.lat(),
-                    longitude: event.latLng.lng()
-                };
-
-                document.getElementById("latitude").value = selectedLocation.latitude;
-                document.getElementById("longitude").value = selectedLocation.longitude;
-
-                markers.forEach((marker) => {
-                    marker.setMap(null);
-                });
-                markers = [];
-
-                const newMarker = new google.maps.Marker({
-                    map,
-                    position: event.latLng,
-                });
-
-                markers.push(newMarker);
-            });
-
-            document.getElementById('getUserLocationButton').addEventListener('click', getUserLocation);
-
-            function getUserLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const userLocation = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-
-                            map.setCenter(userLocation);
-                            map.setZoom(12);
-
-                            const userMarker = new google.maps.Marker({
-                                position: userLocation,
-                                        map,
-                                        title: "Lokasi Pengguna",
-                                        icon: {
-                                            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                                        },
-                            });
-
-                            userMarker.setMap(map);
-
-                            const userInfowindow = new google.maps.InfoWindow({
-                                content: 'Lokasi Pengguna',
-                            });
-
-                            userMarker.addListener("click", () => {
-                                userInfowindow.open(map,userMarker);
-                            });
-                            
-                            createRoute(userLocation, existingMarker.position, map);
-                        },
-                        (error) => {
-                            console.error("Error Mendapatkan Lokasi Anda");
-                        }
-                    );
-                } else {
-                    console.error("Geoloaction is not Support by this browser.");
-                }
-            };
-
-            function createRoute(userLocation, hospitalLocation, map) {
-                const directionsService = new google.maps.directionsService();
-                const directionsRenderer = new google.maps.directionsRenderer({
-                    map,
-                    suppressMarkers: true,
-                });
-
-                const request = {
-                    origin: userLocation,
-                    destination: hospitalLocation,
-                    travelMode: google.maps.travelMode.DRIVING,
-                };
-
-                directionsService.route(request, (result, status) => {
-                    if (status == google.maps.directionStatus.OK) {
-                        directionsRenderer.setDirections(result);
-                        displayRouteSteps(result);
-                    } else {
-                        console.error("Error Creating Route:", status);
-                    }
-                });
-            }
-
-            function displayRouteSteps(directionsResult) {
-                const routeLeg = directionsResult.routes[0].legs[0];
-                const stepsContainer = document.getElementById("route-steps");
-
-                while(stepsContainer.firstChild) {
-                    stepsContainer.removeChild(stepsContainer.firstChild);
-                }
-
-                routeLeg.steps.forEach((step, index) => {
-                    const stepElement = document.createElement("div");
-                    stepElement.innerHTML = '<p>Step ${index + 1}: ${step.instructions}</p>';
-                    stepsContainer.appendChild(stepElement);
-                });
-            }
-        }
-
-        window.initAutocomplete = initAutocomplete;
-    </script>
-@endpush --}}
-
 @push('after-script')
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabNyMuVT8g7rBRF5fcb7ZjAV8ZYuXDls&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('pac-input');
-
-            searchInput.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                }
-            });
-        });
-
-        function initAutocomplete() {
+        document.addEventListener('DOMContentLoaded', function () {
             const hospitalData = {!! isset($hospital) ? json_encode($hospital) : 'null' !!};
             const hospitalLatitude = parseFloat({{ $hospital->latitude }});
             const hospitalLongitude = parseFloat({{ $hospital->longitude }});
 
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: {
-                    lat: hospitalLatitude,
-                    lng: hospitalLongitude,
-                },
-                zoom: 12,
-                mapTypeId: "roadmap",
-            });
+            const map = L.map('map').setView([hospitalLatitude, hospitalLongitude], 13);
 
-            let markers = [];
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
 
-            const existingMarker = new google.maps.Marker({
-                map,
-                position: {
-                    lat: hospitalLatitude,
-                    lng: hospitalLongitude,
-                },
-                title: "Lokasi Fasilitas Kesehatan", 
-            });
+            const hospitalMarker = L.marker([hospitalLatitude, hospitalLongitude]).addTo(map);
+            hospitalMarker.bindPopup(`<strong>${hospitalData.category.name} ${hospitalData.name}</strong><br>${hospitalData.address}`).openPopup();
 
-            markers.push(existingMarker);
+            let userMarker = null;
+            let routingControl = null;
+            let userPosition = null; // <-- simpan posisi user
 
-            const input = document.getElementById("pac-input");
-            const searchBox = new google.maps.places.SearchBox(input, {
-                componentRestrictions: {
-                    country: "ID"
+            // tombol 1: dapatkan lokasi pengguna
+            document.getElementById('getUserLocationButton').addEventListener('click', function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        userPosition = { lat, lng }; // simpan lokasi
+
+                        if (userMarker) {
+                            map.removeLayer(userMarker);
+                        }
+
+                        userMarker = L.marker([lat, lng], {
+                            icon: L.icon({
+                                iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                            })
+                        }).addTo(map).bindPopup("Lokasi Anda").openPopup();
+
+                        map.setView([lat, lng], 13);
+                    }, function (error) {
+                        alert("Gagal mendapatkan lokasi pengguna.");
+                        console.error(error);
+                    });
+                } else {
+                    alert("Browser tidak mendukung geolocation.");
                 }
             });
 
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-            map.addListener("bounds_changed", () => {
-                searchBox.setBounds(map.getBounds());
-            });
-
-            function createInfoWindow(hospital) {
-                return new google.maps.InfoWindow({
-                    content: `
-                        <h6>${hospital.category.name} ${hospital.name}</h6>
-                        <p>${hospital.address}</p>`,
-                });
-            }
-
-            markers.forEach((marker, index) => {
-                const infowindow = createInfoWindow(hospitalData);
-
-                marker.addListener("click", () => {
-                    infowindow.open(map, marker);
-                });
-            });
-
-            searchBox.addListener("places_changed", () => {
-                markers.forEach((marker) => {
-                    marker.setMap(null);
-                });
-                markers = [];
-
-                const places = searchBox.getPlaces();
-
-                if (places.length == 0) {
+            // tombol 2: dapatkan rute
+            document.getElementById('getRouteBtn').addEventListener('click', function () {
+                if (!userPosition) {
+                    alert("Silakan klik 'Dapatkan Lokasi Pengguna' terlebih dahulu.");
                     return;
                 }
 
-                const bounds = new google.maps.LatLngBounds();
-
-                places.forEach((place) => {
-                    if (!place.geometry || !place.geometry.location) {
-                        console.log("Returned place contains no geometry");
-                        return;
-                    }
-
-                    const icon = {
-                        url: place.icon,
-                        size: new google.maps.Size(71, 71),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(17, 34),
-                        scaledSize: new google.maps.Size(25, 25),
-                    };
-
-                    const newMarker = new google.maps.Marker({
-                        map,
-                        icon,
-                        title: place.name,
-                        position: place.geometry.location,
-                    });
-
-                    markers.push(newMarker);
-
-                    if (place.geometry.viewport) {
-                        bounds.union(place.geometry.viewport);
-                    } else {
-                        bounds.extend(place.geometry.location);
-                    }
-
-                    const selectedLocation = {
-                        latitude: place.geometry.location.lat(),
-                        longitude: place.geometry.location.lng()
-                    };
-
-                    document.getElementById("latitude").value = selectedLocation.latitude;
-                    document.getElementById("longitude").value = selectedLocation.longitude;
-
-                    bounds.extend(place.geometry.location);
-                });
-
-                map.fitBounds(bounds);
-            });
-
-            map.addListener("click", (event) => {
-                const selectedLocation = {
-                    latitude: event.latLng.lat(),
-                    longitude: event.latLng.lng()
-                };
-
-                document.getElementById("latitude").value = selectedLocation.latitude;
-                document.getElementById("longitude").value = selectedLocation.longitude;
-
-                markers.forEach((marker) => {
-                    marker.setMap(null);
-                });
-                markers = [];
-
-                const newMarker = new google.maps.Marker({
-                    map,
-                    position: event.latLng,
-                });
-
-                markers.push(newMarker);
-            });
-
-            document.getElementById('getUserLocationButton').addEventListener('click', getUserLocation);
-
-            function getUserLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const userLocation = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-
-                            map.setCenter(userLocation);
-                            map.setZoom(12);
-
-                            const userMarker = new google.maps.Marker({
-                                position: userLocation,
-                                map,
-                                title: "Lokasi Pengguna",
-                                icon: {
-                                    url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                                },
-                            });
-
-                            userMarker.setMap(map);
-
-                            const userInfowindow = new google.maps.InfoWindow({
-                                content: 'Lokasi Pengguna',
-                            });
-
-                            userMarker.addListener("click", () => {
-                                userInfowindow.open(map, userMarker);
-                            });
-                        },
-                        (error) => {
-                            console.error("Error Mendapatkan Lokasi Anda");
-                        }
-                    );
-                } else {
-                    console.error("Geolocation is not supported by this browser.");
+                if (routingControl) {
+                    map.removeControl(routingControl);
                 }
-            }
-        }
-        
-        window.initAutocomplete = initAutocomplete;
+
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(userPosition.lat, userPosition.lng),
+                        L.latLng(hospitalLatitude, hospitalLongitude)
+                    ],
+                    routeWhileDragging: false,
+                    showAlternatives: false,
+                    router: L.Routing.osrmv1({
+                        serviceUrl: 'https://router.project-osrm.org/route/v1'
+                    }),
+                    lineOptions: {
+                        styles: [{ color: 'blue', opacity: 0.6, weight: 5 }]
+                    },
+                    createMarker: function () { return null; }
+                }).addTo(map);
+            });
+        });
     </script>
 @endpush
-
-
-

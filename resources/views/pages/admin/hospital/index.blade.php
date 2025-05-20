@@ -220,6 +220,19 @@
                                                                 id="address" placeholder="Address" name="address">
                                                         </div>
                                                     </div>
+
+                                                    <div class="mb-4">
+                                                        <label for="open_time" class="block text-sm font-semibold mb-1 text-ijo">Open Time<small class="text-red-600">*</small></label>
+                                                        <input type="time" name="open" id="open_time"
+                                                        class="py-2 px-4 block w-full text-gray-700 border-gray-300 rounded text-sm focus:border-gray-300 focus:ring-0" required>
+                                                    </div>
+
+                                                    <div class="mb-4">
+                                                        <label   label for="close_time" class="block text-sm font-semibold mb-1 text-ijo">Close Time<small class="text-red-600">*</small></label>
+                                                        <input type="time" name="close" id="close_time"
+                                                        class="py-2 px-4 block w-full text-gray-700 border-gray-300 rounded text-sm focus:border-gray-300 focus:ring-0" required>
+                                                    </div>
+
                                                     <div class="mb-4">
                                                         <label for="address"
                                                                 class="block text-sm font-semibold mb-1 text-ijo">Latitude<small class="text-red-600">*</small></label>
@@ -235,25 +248,6 @@
                                                             id="longitude" name="longitude" >
                                                     </div>
                                                 </div>
-                                                <!-- basic info end -->
-
-                                                {{-- <hr class="mb-3"> --}}
-
-                                                {{-- <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label for="map" class="form-label">Choose Your
-                                                            Location</label>
-                                                        <div style="height: 300px">
-                                                            <input id="pac-input" class="form-control py-2"
-                                                                type="text" placeholder="Search Location" />
-                                                            <div id="map" class="rounded"></div>
-                                                        </div>
-                                                    </div>
-
-                                                </div> --}}
-
-                                                <!-- privacy settings start -->
-                                                <!-- privacy settings end -->
 
                                                 <hr class="mb-3">
 

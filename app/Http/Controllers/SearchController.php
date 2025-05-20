@@ -23,6 +23,9 @@ class SearchController extends Controller
         $hospitals = Hospital::where('name', 'LIKE', "%$keyword%")
                                 ->orWhere('description', 'LIKE', "%$keyword%")
                                 ->orWhere('address', 'LIKE', "%$keyword%")
+                                ->orWhereHas('category', function ($query) use ($keyword) {
+                                    $query->where('name', 'LIKE', "%$keyword%");
+                                })
                                 ->paginate(6);
 
         return view('pages.search', compact('hospitals'));

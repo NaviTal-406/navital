@@ -103,11 +103,11 @@
                         <a class="font-base text-biru hover:text-blue-900" href="{{ route('home') }}">Home</a>
                     </li>
 
-                    @if (Auth::user())
+
                     <li>
                         <a class="font-base text-biru hover:text-blue-900" href="{{ route('search') }}">Search</a>
                     </li>
-                    @endif
+
 
                     <li>
                         <a class="font-base text-biru hover:text-blue-900" href="#aboutus">About</a>
@@ -136,8 +136,8 @@
                                 class="hidden opacity-0 mt-4 fc-dropdown-open:opacity-100 fc-dropdown-open:translate-y-0 translate-y-3 origin-center transition-all bg-white rounded-lg shadow-lg border p-2 w-48 space-y-1.5">
 
                                 <!-- Dropdown item -->
-                                <div class="nav-item rounded hover:bg-teal-50 transition-all">
-                                    <a class="text-black hover:text-teal-600 flex items-center !p-2" href="{{ route('dashboard.dashboard') }}">
+                                <div class="nav-item rounded hover:bg-blue-50 transition-all">
+                                    <a class="text-black hover:text-biru flex items-center !p-2" href="{{ route('dashboard.dashboard') }}">
                                         <svg class="h-4 w-4 me-2 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"
@@ -153,11 +153,11 @@
                                 <hr class="-mx-2 my-2">
 
                                 <!-- Dropdown item -->
-                                <div class="nav-item rounded hover:bg-teal-50 transition-all">
+                                <div class="nav-item rounded hover:bg-red-50 transition-all">
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
 
-                                        <a class="flex items-center text-black hover:text-teal-600 !p-2" href="{{ route('logout') }}"
+                                        <a class="flex items-center text-black hover:text-red-700 !p-2" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); this.closest('form').submit();">
                                             <svg class="h-4 w-4 me-2" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -174,16 +174,13 @@
                             </div>
                         </li>
                     @else
-                        <li class="nav-item">
-                            {{-- <button class="flex items-center"> --}}
+                        {{-- <li class="nav-item">
                             <a href="{{ route('register') }}"
                                 class="border border-ijo text-ijo rounded-md hover:bg-ijo hover:text-white hover:shadow-lg hover:shadow-ijo/30 focus:shadow-none focus:outline focus:outline-ijo/40 transition-all duration-500 py-2 px-4">Register</a>
-                            {{-- </button> --}}
-
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('login') }}"
-                                class="border outline-ijo outline-2 bg-ijo text-white hover:bg-white hover:text-ijo hover:shadow-md hover:shadow-ijo/30 hover:border-ijo focus:shadow-none focus:outline focus:outline-ijo/40 transition-all duration-500 px-4 py-2 rounded inline-flex items-center text-sm">Login</a>
+                                class="border outline-biru outline-2 bg-biru text-white hover:bg-white hover:text-biru hover:shadow-md hover:shadow-ijo/30 hover:border-biru focus:shadow-none focus:outline focus:outline-biru/40 transition-all duration-500 px-4 py-2 rounded inline-flex items-center text-sm">Login</a>
                         </li>
                     @endif
 

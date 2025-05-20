@@ -44,18 +44,42 @@
 
                 @forelse ($hospitals ?? [] as $item)
                     <div>
-                        <img src="{{ Storage::url($item->thumbnail) }}" alt="{{ $item->name }}" class="rounded-md mb-5"
-                            style="max-height: 250px; min-width:100%; object-fit:cover">
+                        <div class="w-full h-[200px] overflow-hidden rounded-md mb-5">
+                            <img src="{{ Storage::url($item->thumbnail) }}" alt="{{ $item->name }}"
+                                class="w-full h-full object-cover" />
+                        </div>
 
-                        <span class="bg-teal-50 text-ijo font-medium rounded-md text-xs py-1 px-2"><a
-                                href="#">{{ $item->category->name }}</a></span>
-                        <h1 class="text-lg my-3 transition-all text-ijo hover:text-teal-800"><a
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="bg-blue-50 text-biru font-medium rounded-md text-xs py-1 px-2">
+                                <a href="#">{{ $item->category->name }}</a>
+                            </span>
+
+                            @php
+                                $now = strtotime(date('H:i:s'));
+                                $open = strtotime($item->open);
+                                $close = strtotime($item->close);
+                                $isOpen = $open < $close
+                                    ? ($now >= $open && $now <= $close)
+                                    : ($now >= $open || $now <= $close);
+                            @endphp
+
+                            <div class="flex items-center gap-4">
+                                @if ($isOpen)
+                                    <span class="text-sm font-semibold px-2 py-1 rounded bg-green-100 text-green-600">
+                                        Open
+                                    </span>
+                                @else
+                                    <span class="text-sm font-semibold px-2 py-1 rounded bg-red-100 text-red-600">
+                                        Close
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <h1 class="text-lg my-3 transition-all text-biru hover:text-blue-800"><a
                                 href="{{ route('detail', $item->slug) }}">{{ $item->category->name }}
                                 {{ $item->name }}</a></h1>
-                        <p class="text-sm/relaxed tracking-wider text-gray-500 truncate">{{ $item->description }}
-                            
-                        </p>
-                        <a href="{{ route('detail', $item->slug) }}" class="text-ijo font-bold text-sm hover:text-teal-800">read more</a>
+                        <p class="text-sm/relaxed tracking-wider text-gray-500 truncate">{{ $item->description }}</p>
+                        <a href="{{ route('detail', $item->slug) }}" class="text-biru font-bold text-sm hover:text-blue-800">read more</a>
                     </div>
 
 
