@@ -12,7 +12,7 @@
                         <div class="shadow-md p-12 rounded-s xl:col-span-5 md:col-span-6">
                             <div class="mb-12">
                                 <a href="{{ route('home') }}">
-                                    <p class="text-2xl text-ijo font-bold text-center">MedisMap</p>
+                                    <p class="text-2xl text-biru font-bold text-center">Navital</p>
                                 </a>
                             </div>
 
@@ -32,8 +32,8 @@
                                 </div>
                             @endif
 
-                            <h6 class="text-base/[1.6] font-semibold text-ijo mb-0 mt-4">Create Your Account</h6>
-                            <p class="text-ijo text-sm/[1.6] mt-1 mb-6">Don't have an account? Create your account, it
+                            <h6 class="text-base/[1.6] font-semibold text-biru mb-0 mt-4">Create Your Account</h6>
+                            <p class="text-biru text-sm/[1.6] mt-1 mb-6">Don't have an account? Create your account, it
                                 takes less than a minute.</p>
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf

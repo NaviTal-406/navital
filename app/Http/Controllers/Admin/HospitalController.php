@@ -71,7 +71,9 @@ class HospitalController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $hospital = Hospital::with(['category', 'reviews', 'layanans.dokters'])->findOrFail($id);
+
+        return view('hospital.detail', compact('hospital'));
     }
 
     /**

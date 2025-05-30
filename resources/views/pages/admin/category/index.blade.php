@@ -135,7 +135,8 @@
                                                 <div class="row mt-3">
                                                     <div class="col-lg-12">
                                                         <button type="submit"
-                                                            class="inline-flex items-center justify-center py-3 px-4 rounded-lg text-sm font-semibold transition-all bg-red-500 text-white hover:bg-red-400">Submit</button>
+                                                            class="inline-flex items-center justify-center py-3 px-4 rounded-lg text-sm font-semibold transition-all bg-red-500 text-white hover:bg-red-400">Submit
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <!-- save end -->

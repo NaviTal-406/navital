@@ -24,24 +24,53 @@
                         </p>
                 
                         <div class="mt-7 sm:mt-12 mx-auto max-w-xl relative">
-                          <!-- Form -->
-                          <form action="{{ route('search') }}" method="GET">
-                            @csrf
-                            <div class="relative z-10 flex space-x-3 p-3">
-                              <div class="flex-[1_0_0%]">
-                                <label for="keyword" class="block text-sm text-gray-700 font-medium"><span class="sr-only">Search article</span></label>
-                                <input type="text" name="keyword" id="keyword" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 placeholder:text-gray-500 text-gray-500" placeholder="Cari Faskes">
-                              </div>
-                              <div class="flex-[0_0_auto]">
-                                <button type="submit" class="w-[46px] h-[46px] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border bg-red-400 text-white hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                    </svg>
-                                </button>
-                              </div>
-                            </div>
-                          {{-- </form> --}}
-                          <!-- End Form -->
+                            <!-- Form -->
+                            <form action="{{ route('search') }}" method="GET">
+                                @csrf
+                                <div class="relative z-10 space-y-3 p-3 bg-white rounded-lg shadow">
+
+                                    {{-- Input Keyword --}}
+                                    <div>
+                                        <label for="keyword" class="block text-sm text-gray-700 font-medium">Cari Faskes</label>
+                                        <input type="text" name="keyword" id="keyword" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 placeholder:text-gray-500 text-gray-700" placeholder="Masukkan nama RS, dokter, layanan...">
+                                    </div>
+
+                                    {{-- Filter: Kategori --}}
+                                    <div>
+                                        <label for="category" class="block text-sm text-gray-700 font-medium">Kategori Rumah Sakit</label>
+                                        <select name="category_id" id="category" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 text-gray-700">
+                                            <option value="">-- Semua Kategori --</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Filter: Layanan --}}
+                                    <div>
+                                        <label for="layanan" class="block text-sm text-gray-700 font-medium">Jenis Layanan</label>
+                                        <select name="layanan" id="layanan" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 text-gray-700">
+                                            <option value="">-- Semua Layanan --</option>
+                                            @foreach ($allLayanans as $layanan)
+                                                <option value="{{ $layanan->name }}" {{ request('layanan') == $layanan->name ? 'selected' : '' }}>
+                                                    {{ $layanan->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Tombol Submit --}}
+                                    <div class="text-right">
+                                        <button type="submit" class="inline-flex items-center px-5 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600">
+                                            Cari
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!-- End Form -->
                         </div>
                       </div>
                     </div>

@@ -43,6 +43,31 @@
                 <p class="text-gray-500 font-light text-sm mt-2"></i>{{ $hospital->address }}</p>
             </div>
 
+            <h2 class="text-xl font-bold mt-10">Layanan dan Dokter</h2>
+
+            @forelse ($hospital->layanans as $layanan)
+                <div class="mt-6 p-4 border rounded bg-white shadow-sm">
+                    <h3 class="text-lg font-semibold text-biru">{{ $layanan->name }}</h3>
+
+                    @if ($layanan->dokters->count())
+                        <ul class="list-disc pl-6 mt-2">
+                            @foreach ($layanan->dokters as $dokter)
+                                <li class="text-sm text-gray-700">
+                                    <strong>{{ $dokter->name }}</strong>
+                                    @if ($dokter->jadwal_praktik)
+                                        - Jadwal: {{ $dokter->jadwal_praktik }}
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-sm text-gray-500 mt-2">Belum ada dokter terdaftar untuk layanan ini.</p>
+                    @endif
+                </div>
+            @empty
+                <p class="text-gray-500 mt-4">Belum ada layanan tersedia di rumah sakit ini.</p>
+            @endforelse
+
             <h2 class="text-xl font-bold mt-6">Ulasan</h2>
 
             @foreach ($hospital->reviews as $review)

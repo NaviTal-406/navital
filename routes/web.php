@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
@@ -33,9 +35,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
                 Route::resource('user', UserController::class);
                 Route::resource('category', CategoryController::class);
                 Route::resource('hospital', HospitalController::class);
+                Route::resource('layanan', LayananController::class);
+                Route::resource('dokter', DokterController::class);
+
+                Route::get('/get-layanan-by-hospital/{hospital}', function (App\Models\Hospital $hospital) {
+                    return response()->json($hospital->layanans()->select('id', 'name')->get());
+                })->name('get.layanan.by.hospital');
             });
         });
     });
-
-
 require __DIR__.'/auth.php';

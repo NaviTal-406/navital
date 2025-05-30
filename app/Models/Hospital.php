@@ -36,4 +36,9 @@ class Hospital extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function layanans()
+    {
+        return $this->hasMany(Layanan::class);
+    }
 }
