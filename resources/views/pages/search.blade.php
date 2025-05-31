@@ -45,7 +45,7 @@
                 @forelse ($hospitals ?? [] as $item)
                     <div>
                         <div class="w-full h-[200px] overflow-hidden rounded-md mb-5">
-                            <img src="{{ Storage::url($item->thumbnail) }}" alt="{{ $item->name }}"
+                            <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}"
                                 class="w-full h-full object-cover" />
                         </div>
 

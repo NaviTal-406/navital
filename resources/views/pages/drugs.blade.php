@@ -168,10 +168,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                 ${drug.image ? `
                     <div class="w-full h-[200px] overflow-hidden">
-                        <img src="/storage/${drug.image}" 
-                             alt="${drug.name}" 
-                             class="w-full h-full object-cover"
-                             onerror="this.onerror=null; this.src='/placeholder-image.jpg';">
+                        <img src="/${drug.image}" 
+                            alt="${drug.name}" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='/placeholder-image.jpg';">
                     </div>
                 ` : ''}
                 <div class="p-6">
@@ -187,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `).join('');
+
     }
 
     function showLoading() {

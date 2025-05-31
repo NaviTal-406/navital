@@ -26,7 +26,7 @@
     <section>
         <div class="container">
             <div>
-                <img src="{{ Storage::url($hospital->thumbnail) }}" alt="{{ $hospital->name }}"
+                <img src="{{ asset($hospital->thumbnail) }}" alt="{{ $hospital->name }}"
                     style="max-height: 300px; width: 100%; object-fit: contain;" class="rounded-md my-10" />
 
             </div>  

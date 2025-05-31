@@ -10,7 +10,7 @@
                     {{-- Kontainer gambar tanpa tinggi tetap --}}
                     {{-- Gambar akan menentukan tinggi kontainer ini, dengan max-width 100% --}}
                     <div class="w-full relative overflow-hidden flex items-center justify-center p-4"> {{-- Ditambahkan p-4 untuk padding agar gambar tidak terlalu menempel --}}
-                        <img src="{{ asset('storage/' . $drug->image) }}"
+                        <img src="{{ asset($drug->image) }}"
                              alt="{{ $drug->name }}"
                              class="max-w-full object-contain"> {{-- max-h-full dihilangkan karena tinggi kontainer fleksibel --}}
                     </div>
