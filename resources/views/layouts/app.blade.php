@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
     @include('includes.meta')
 
     <!-- title -->
-    <title>Medical | Home</title>
+    <title>Medical | @yield('title', 'Home')</title>
 
     @stack('before-style')
 
@@ -15,20 +15,24 @@
 
 </head>
 
-<body>
+<body class="flex flex-col min-h-full">
 
     {{-- @include('sweetalert::alert') --}}
 
-    {{-- @if (\Route::current()->getName() != 'login' && \Route::current()->getName() != 'register-step-1' && \Route::current()->getName() != 'register-step-2' && \Route::current()->getName() != 'register-step-3' && \Route::current()->getName() != 'forgot-password-1' && \Route::current()->getName() != 'forgot-password-2' && \Route::current()->getName() != 'forgot-password-3') --}}
+    <!-- Fixed navbar with proper spacing -->
+    <header class="fixed top-0 left-0 right-0 z-50">
         @include('includes.navbar')
-    {{-- @endif --}}
+    </header>
 
-    @yield('content')
+    <!-- Main content with padding for fixed navbar -->
+    <main class="flex-grow pt-16">
+        @yield('content')
+    </main>
 
-    {{-- @if (\Route::current()->getName() != 'login' && \Route::current()->getName() != 'register-step-1' && \Route::current()->getName() != 'register-step-2' && \Route::current()->getName() != 'register-step-3' && \Route::current()->getName() != 'forgot-password-1' && \Route::current()->getName() != 'forgot-password-2' && \Route::current()->getName() != 'forgot-password-3') --}}
+    <!-- Footer always at bottom -->
+    <footer>
         @include('includes.footer')
-    {{-- @endif --}}
-
+    </footer>
 
     @stack('before-script')
 

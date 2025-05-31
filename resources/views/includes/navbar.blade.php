@@ -112,6 +112,14 @@
                     <li>
                         <a class="font-base text-biru hover:text-blue-900" href="#aboutus">About</a>
                     </li>
+
+                    <li>
+                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('drugs.index') }}">
+                            <i class="fas fa-pills mr-2"></i>
+                            Bank Obat
+                        </a>
+                    </li>
+
                     @if (Auth::user())
                         <li class="nav-item">
                             <a href="javascript:void(0);"

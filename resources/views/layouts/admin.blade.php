@@ -104,6 +104,12 @@
                                 <span class="grow">Dokter</span>
                             </a>
                         </li>
+                        <li class="nav-item pe-4">
+                            <a href="{{ route('admin.drugs.index') }}" class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru transition-all {{ request()->routeIs('admin.drugs.*') ? 'bg-gray-100' : '' }}">
+                                <i class="fas fa-pills mr-3"></i>
+                                <span class="grow">Obat</span>
+                            </a>
+                        </li>
                         {{-- <li class="nav-item pe-4">
                             <a class="nav-link flex items-center font-semibold py-2 px-4 lg:py-0 text-black hover:text-biru transition-all"
                                 href="{{ route('dashboard.user.index') }}">

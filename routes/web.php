@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DrugController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,4 +45,17 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             });
         });
     });
+
+// Admin routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('drugs', \App\Http\Controllers\Admin\DrugController::class);
+});
+
+// User routes
+Route::get('/drugs', [DrugController::class, 'index'])->name('drugs.index');
+Route::get('/drugs/all', [DrugController::class, 'all'])->name('drugs.all');
+Route::get('/drugs/search', [DrugController::class, 'search'])->name('drugs.search');
+Route::get('/drugs/letter/{letter}', [DrugController::class, 'byLetter'])->name('drugs.byLetter');
+Route::get('/drugs/{drug}', [DrugController::class, 'show'])->name('drugs.show');
+
 require __DIR__.'/auth.php';
