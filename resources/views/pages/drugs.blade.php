@@ -16,7 +16,6 @@
                                             Bank Obat
                                         </span>
                                     </div>
-                                    <!-- Search Form -->
                                     <div class="relative z-10 flex space-x-3 p-3">
                                         <div class="flex-[1_0_0%]">
                                             <input type="text" 
@@ -37,7 +36,6 @@
                         </div>
                     </div>
 
-                    <!-- Alphabet Filter -->
                     <div class="flex flex-wrap gap-2 justify-center my-8">
                         @foreach(range('A', 'Z') as $letter)
                             <button 
@@ -49,17 +47,14 @@
                         @endforeach
                     </div>
 
-                    <!-- Loading Indicator -->
                     <div id="loadingIndicator" class="hidden">
                         <div class="flex justify-center items-center py-8">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
                         </div>
                     </div>
 
-                    <!-- Results Section -->
                     <div id="searchResults" class="grid lg:grid-cols-3 grid-cols-1 gap-6 lg:py-16 py-14">
-                        <!-- Results will be populated here -->
-                    </div>
+                        </div>
                 </div>
             </section>
         </main>
@@ -85,9 +80,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (query.length > 0) {
             searchTimeout = setTimeout(() => {
                 performSearch(query);
-            }, 300);
+            }, 300); // Debounce search
         } else {
-            loadInitialData();
+            loadInitialData(); // Load all if search is cleared
+             // Reset active letter filter if search is cleared
+            document.querySelectorAll('.letter-filter.bg-red-400').forEach(btn => {
+                btn.classList.remove('bg-red-400', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
         }
     });
 
@@ -95,9 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.letter-filter').forEach(button => {
         button.addEventListener('click', function() {
             const letter = this.dataset.letter;
+            searchInput.value = ''; // Clear search input when letter filter is used
             searchByLetter(letter);
             
-            // Update active state
+            // Update active state for letter filters
             document.querySelectorAll('.letter-filter').forEach(btn => {
                 btn.classList.remove('bg-red-400', 'text-white');
                 btn.classList.add('bg-gray-100', 'text-gray-700');
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loadInitialData() {
         showLoading();
         try {
-            const response = await fetch('/drugs/all');
+            const response = await fetch('/drugs/all'); // Ganti dengan endpoint Anda yang sesuai
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -120,8 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading initial drugs:', error);
             searchResults.innerHTML = `
                 <div class="col-span-full text-center">
-                    <p class="text-red-500 mb-2">Error loading drugs. Please try again.</p>
-                    <p class="text-gray-600">Error details: ${error.message}</p>
+                    <p class="text-red-500 mb-2">Error memuat data obat. Silakan coba lagi.</p>
+                    <p class="text-gray-600 text-sm">Detail: ${error.message}</p>
                 </div>`;
         }
         hideLoading();
@@ -129,13 +130,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function performSearch(query) {
         showLoading();
+         // Reset active letter filter if search is used
+        document.querySelectorAll('.letter-filter.bg-red-400').forEach(btn => {
+            btn.classList.remove('bg-red-400', 'text-white');
+            btn.classList.add('bg-gray-100', 'text-gray-700');
+        });
         try {
-            const response = await fetch(`/drugs/search?query=${encodeURIComponent(query)}`);
+            const response = await fetch(`/drugs/search?query=${encodeURIComponent(query)}`); // Ganti dengan endpoint Anda
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             displayResults(data);
         } catch (error) {
             console.error('Error searching drugs:', error);
-            searchResults.innerHTML = '<p class="text-red-500">Error searching drugs. Please try again.</p>';
+            searchResults.innerHTML = `
+                <div class="col-span-full text-center">
+                     <p class="text-red-500 mb-2">Error mencari obat. Silakan coba lagi.</p>
+                     <p class="text-gray-600 text-sm">Detail: ${error.message}</p>
+                </div>`;
         }
         hideLoading();
     }
@@ -143,19 +156,27 @@ document.addEventListener('DOMContentLoaded', function() {
     async function searchByLetter(letter) {
         showLoading();
         try {
-            const response = await fetch(`/drugs/letter/${letter}`);
+            const response = await fetch(`/drugs/letter/${letter}`); // Ganti dengan endpoint Anda
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             displayResults(data);
         } catch (error) {
-            console.error('Error fetching drugs:', error);
-            searchResults.innerHTML = '<p class="text-red-500">Error fetching drugs. Please try again.</p>';
+            console.error('Error fetching drugs by letter:', error);
+            searchResults.innerHTML = `
+                <div class="col-span-full text-center">
+                    <p class="text-red-500 mb-2">Error memuat obat berdasarkan huruf. Silakan coba lagi.</p>
+                    <p class="text-gray-600 text-sm">Detail: ${error.message}</p>
+                </div>`;
         }
         hideLoading();
     }
 
     function displayResults(drugs) {
         if (!Array.isArray(drugs)) {
-            searchResults.innerHTML = '<p class="col-span-full text-center text-red-500">Invalid data format received</p>';
+            console.error('Invalid data format received:', drugs);
+            searchResults.innerHTML = '<p class="col-span-full text-center text-red-500">Format data tidak valid.</p>';
             return;
         }
 
@@ -164,34 +185,61 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        searchResults.innerHTML = drugs.map(drug => `
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                ${drug.image ? `
-                    <div class="w-full h-[200px] overflow-hidden">
-                        <img src="/${drug.image}" 
-                            alt="${drug.name}" 
-                            class="w-full h-full object-cover"
-                            onerror="this.onerror=null; this.src='/placeholder-image.jpg';">
-                    </div>
-                ` : ''}
-                <div class="p-6">
+        searchResults.innerHTML = drugs.map(drug => {
+            const drugId = drug.id || Date.now(); // Fallback ID jika tidak ada
+            const drugName = String(drug.name || 'Nama Obat Tidak Tersedia');
+            const drugDescription = String(drug.description || 'Deskripsi tidak tersedia.');
+            
+            // HTML escape untuk atribut alt
+            const safeAltText = drugName.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+            let imageHtml;
+            if (drug.image && typeof drug.image === 'string' && drug.image.trim() !== '') {
+                const imageName = String(drug.image).trim();
+                // Escape nama file gambar untuk digunakan dalam string JavaScript di atribut onerror
+                const jsEscapedImageName = imageName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                // Escape alt text untuk digunakan dalam string JavaScript di atribut onerror
+                const jsEscapedAltText = safeAltText.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+                const primarySrc = `/${imageName}`; // Path utama
+                const fallbackSrc = `/storage/${jsEscapedImageName}`; // Path fallback (nama file sudah di-escape untuk JS)
+                
+                imageHtml = `
+                <div class="w-full h-[200px] overflow-hidden">
+                    <img src="${primarySrc}" 
+                         alt="${safeAltText}" 
+                         class="w-full h-full object-cover"
+                         onerror="this.onerror=null; this.src='${fallbackSrc}'; this.alt='${jsEscapedAltText} (fallback)';">
+                </div>`;
+            } else {
+                // Placeholder jika tidak ada gambar
+                imageHtml = `
+                <div class="w-full h-[200px] overflow-hidden flex items-center justify-center bg-gray-100 text-gray-400">
+                    <span>Gambar tidak tersedia</span>
+                </div>`;
+            }
+
+            return `
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                ${imageHtml}
+                <div class="p-6 flex flex-col flex-grow">
                     <h1 class="text-lg font-semibold mb-3 text-biru hover:text-blue-800">
-                        ${drug.name}
+                        ${drugName}
                     </h1>
-                    <p class="text-sm/relaxed tracking-wider text-gray-500 line-clamp-3 mb-4">
-                        ${drug.description || 'No description available'}
+                    <p class="text-sm/relaxed tracking-wider text-gray-500 line-clamp-3 mb-4 flex-grow">
+                        ${drugDescription}
                     </p>
-                    <a href="/drugs/${drug.id}" class="text-biru font-bold text-sm hover:text-blue-800">
+                    <a href="/drugs/${drugId}" class="text-biru font-bold text-sm hover:text-blue-800 self-start mt-auto">
                         Lihat Detail →
                     </a>
                 </div>
-            </div>
-        `).join('');
-
+            </div>`;
+        }).join('');
     }
 
     function showLoading() {
         loadingIndicator.classList.remove('hidden');
+        searchResults.innerHTML = ''; // Kosongkan hasil saat loading
     }
 
     function hideLoading() {
@@ -199,4 +247,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endpush 
+@endpush
