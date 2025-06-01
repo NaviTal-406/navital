@@ -72,7 +72,7 @@
                                                                                     {{ $drug->name }}
                                                                                 </td>
                                                                                 <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                                                    <img src="{{ asset('storage/' . $drug->image) }}" 
+                                                                                    <img src="{{ asset('assets/' . $drug->image) }}" 
                                                                                          alt="{{ $drug->name }}" 
                                                                                          class="h-10 w-10 object-cover rounded">
                                                                                 </td>
