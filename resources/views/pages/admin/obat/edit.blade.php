@@ -50,7 +50,7 @@
 
                                                         <div class="mb-4">
                                                             @if($drug->image)
-                                                                <img src="{{ asset('storage/' . $drug->image) }}"
+                                                                <img src="{{ asset('assets/' . $drug->image) }}"
                                                                     alt="{{ $drug->name }}" class="w-20 h-20 object-cover rounded mb-2">
                                                             @endif
 
