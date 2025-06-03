@@ -100,23 +100,26 @@
                 <ul class="navbar-nav flex gap-x-10 items-center justify-center">
                     <!-- Home Page Link -->
                     <li>
-                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('home') }}">Home</a>
+                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('home') }}">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
                     </li>
 
-
                     <li>
-                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('search') }}">Search</a>
-                    </li>
-
-
-                    <li>
-                        <a class="font-base text-biru hover:text-blue-900" href="#aboutus">About</a>
+                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('search') }}">
+                            <i class="fas fa-search mr-2"></i>Search
+                        </a>
                     </li>
 
                     <li>
                         <a class="font-base text-biru hover:text-blue-900" href="{{ route('drugs.index') }}">
-                            <i class="fas fa-pills mr-2"></i>
-                            Bank Obat
+                            <i class="fas fa-pills mr-2"></i>Bank Obat
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="font-base text-biru hover:text-blue-900" href="{{ route('about') }}">
+                            <i class="fas fa-info-circle mr-2"></i>About
                         </a>
                     </li>
 

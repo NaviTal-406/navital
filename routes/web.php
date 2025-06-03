@@ -58,4 +58,8 @@ Route::get('/drugs/search', [DrugController::class, 'search'])->name('drugs.sear
 Route::get('/drugs/letter/{letter}', [DrugController::class, 'byLetter'])->name('drugs.byLetter');
 Route::get('/drugs/{drug}', [DrugController::class, 'show'])->name('drugs.show');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
 require __DIR__.'/auth.php';

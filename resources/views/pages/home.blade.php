@@ -3,224 +3,271 @@
 @section('title', 'Home')
 
 @section('content')
-    <!-- =========== Hero Section Start =========== -->
-
-    <!-- =========== Hero Section End =========== -->
-
-    <!-- =========== feature Section Start =========== -->
-    <section class="overflow-hidden">
-        <div class="xl:py-24 py-16">
-            <div class="container">
-
-                <div class="relative overflow-hidden">
-                    <div class="max-w-[85rem] mx-auto px-4 py-10">
-                      <div class="text-center">
-                        <h1 class="text-2xl sm:text-4xl font-bold text-biru">
-                          Find Hospital in Bandung Raya 
-                        </h1>
+    <section class="bg-gradient-to-br from-blue-50 to-teal-50 pt-10 pb-16 lg:pt-16 lg:pb-16">
+        <div class="container mx-auto px-10"> 
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                        Find Health Facility
+                    </h1>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-blue-600 mb-6">
+                        With Detailed Information
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        We use only the best quality materials on the market in order to provide the best products to our patients, so don't worry about anything and book yourself.
+                    </p>
+                    <a href="{{ route('search') }}" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                        Find Now
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
                 
-                        <p class="text-2xl sm:text-4xl font-bold mt-3 text-biru">
-                          With Detailed Information.
-                        </p>
-                
-                        <div class="mt-7 sm:mt-12 mx-auto max-w-xl relative">
-                            <!-- Form -->
-                            <form action="{{ route('search') }}" method="GET">
-                                @csrf
-                                <div class="relative z-10 space-y-3 p-3 bg-white rounded-lg shadow">
-
-                                    {{-- Input Keyword --}}
-                                    <div>
-                                        <label for="keyword" class="block text-sm text-gray-700 font-medium">Cari Faskes</label>
-                                        <input type="text" name="keyword" id="keyword" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 placeholder:text-gray-500 text-gray-700" placeholder="Masukkan nama RS, dokter, layanan...">
-                                    </div>
-
-                                    {{-- Filter: Kategori --}}
-                                    <div>
-                                        <label for="category" class="block text-sm text-gray-700 font-medium">Kategori Rumah Sakit</label>
-                                        <select name="category_id" id="category" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 text-gray-700">
-                                            <option value="">-- Semua Kategori --</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    {{-- Filter: Layanan --}}
-                                    <div>
-                                        <label for="layanan" class="block text-sm text-gray-700 font-medium">Jenis Layanan</label>
-                                        <select name="layanan" id="layanan" class="py-2.5 px-4 block w-full border-2 rounded-lg border-teal-600 text-gray-700">
-                                            <option value="">-- Semua Layanan --</option>
-                                            @foreach ($allLayanans as $layanan)
-                                                <option value="{{ $layanan->name }}" {{ request('layanan') == $layanan->name ? 'selected' : '' }}>
-                                                    {{ $layanan->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    {{-- Tombol Submit --}}
-                                    <div class="text-right">
-                                        <button type="submit" class="inline-flex items-center px-5 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600">
-                                            Cari
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </form>
-                            <!-- End Form -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                <div class="text-center mt-14">
-                    <h1 class="text-3xl/tight font-bold mt-3 mb-4 text-biru">Solution For Find Health Facilities</h1>
-                    <h1 class="text-3xl/tight font-bold mt-3 mb-4 text-biru">Our Vision & Mision</h1>
-                </div>
-
-                <div class="xl:pt-16 xl:pb-28 py-16">
-                    <div class="grid lg:grid-cols-2 grid-cols-1 gap-6 items-center">
-
-                        <div class="relative">
-                            <img src="assets/images/hero/navitals.png" alt="Medicine" data-aos="fade-right"
-                                data-aos-duration="400">
-                        </div>
-
-                        <div class="lg:ms-24">
-                            <div data-fc-type="accordion" data-aos="fade-up" data-aos-duration="500">
-
-                                <!-- 1 (Penghubung) -->
-                                <button
-                                    class="pt-2 inline-flex items-center gap-x-4 w-full font-medium text-left text-gray-800 transition-all hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400"
-                                    data-fc-type="collapse">
-                                    <div class="bg-emerald-50 rounded-lg flex items-center justify-center h-12 w-12">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#92E3A9" d="M7 14v-3.09c-.72-.33-1.39-.73-2-1.2V14zm-2 4H3v-2H1v-2h2V7h2v1.43C6.8 10 9.27 11 12 11c2.73 0 5.2-1 7-2.57V7h2v7h2v2h-2v2h-2v-2H5zm12-7.09V14h2V9.71c-.61.47-1.28.87-2 1.2M16 14v-2.68c-.64.23-1.31.4-2 .52V14zm-3 0v-2.04L12 12l-1-.04V14zm-3 0v-2.16c-.69-.12-1.36-.29-2-.52V14z"/></svg> 
-                                    </div>
-                                    <h1 class="font-medium mb-4 mt-2">Our Vision</h1>
-                                </button>
-                                <div class="w-full overflow-hidden duration-300 ps-16">
-                                    <p class="text-gray-700 dark:text-gray-300">
-                                        Menjadi platform digital utama yang merevolusi cara masyarakat Indonesia mengakses dan memilih layanan kesehatan, memastikan setiap individu dapat menemukan fasilitas medis terbaik yang sesuai dengan kebutuhan mereka, kapan pun dan di mana pun.
-                                    </p>
-                                </div>
-
-                                <div class="border-b my-6"></div>
-
-                                <!-- 2 -->
-                                <button
-                                    class="pt-2 inline-flex items-center gap-x-4 w-full font-medium text-left text-gray-800 transition hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400"
-                                    data-fc-type="collapse">
-                                    <div class="bg-yellow-200/50 rounded-lg flex items-center justify-center h-12 w-12">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="#475569" d="M6.813 2.406L5.405 3.812L7.5 5.906L8.906 4.5zm18.375 0L23.093 4.5L24.5 5.906l2.094-2.093zM16 3.03c-.33.004-.664.023-1 .064c-.01 0-.02-.002-.03 0c-4.056.465-7.284 3.742-7.845 7.78c-.448 3.25.892 6.197 3.125 8.095a5.238 5.238 0 0 1 1.75 3.03v6h2.28c.348.597.983 1 1.72 1s1.372-.403 1.72-1H20v-4h.094v-1.188c0-1.466.762-2.944 2-4.093C23.75 17.06 25 14.705 25 12c0-4.94-4.066-9.016-9-8.97m0 2c3.865-.054 7 3.11 7 6.97c0 2.094-.97 3.938-2.313 5.28l.032.032A7.792 7.792 0 0 0 18.279 22h-4.374c-.22-1.714-.955-3.373-2.344-4.563c-1.767-1.5-2.82-3.76-2.468-6.312c.437-3.15 2.993-5.683 6.125-6.03a6.91 6.91 0 0 1 .78-.064zM2 12v2h3v-2zm25 0v2h3v-2zM7.5 20.094l-2.094 2.093l1.407 1.407L8.905 21.5zm17 0L23.094 21.5l2.093 2.094l1.407-1.407zM14 24h4v2h-4z"/></svg>
-                                    </div>
-                                    <h1 class="font-medium mb-4 mt-2">Our Mision</h1>
-                                </button>
-                                <div class="hidden w-full overflow-hidden duration-300 ps-16">
-                                    <p class="text-gray-700 dark:text-gray-300">
-                                        <ol class="list-decimal list-inside">
-                                            <li>Menyediakan data rumah sakit yang komprehensif, akurat, dan mudah diakses.</li>
-                                            <li>Mengembangkan sistem pencarian yang intuitif berbasis web, memungkinkan untuk mengidentifikasi rumah sakit yang sesuai dengan kebutuhan spesifik, terutama dalam kondisi darurat.</li>
-                                            <li>Berkontribusi pada pencapaian SDG 3 (Good Health and Well-Being) khususnya SDG 3.8 (Universal Health Coverage) dengan mempermudah akses masyarakat terhadap layanan kesehatan yang berkualitas dan relevan dengan kebutuhan mereka.</li>
-                                        </ol>
-                                    </p>
-                                </div>
-
-                                <div class="border-b my-6"></div>
-
-                                <!-- 3 -->
-                                <button
-                                    class="pt-2 inline-flex items-center gap-x-4 w-full font-medium text-left text-gray-800 transition hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400"
-                                    data-fc-type="collapse">
-                                    <div class="bg-gray-500/10 rounded-lg flex items-center justify-center h-12 w-12">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#b91c1c" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12c5.16-1.26 9-6.45 9-12V5Zm0 3.9a3 3 0 1 1-3 3a3 3 0 0 1 3-3m0 7.9c2 0 6 1.09 6 3.08a7.2 7.2 0 0 1-12 0c0-1.99 4-3.08 6-3.08"/></svg>
-                                    </div>
-                                    <h1 class="font-medium mb-4 mt-2">NaviTal</h1>
-                                </button>
-                                <div class="hidden w-full overflow-hidden duration-300 ps-16">
-                                    <p class="text-gray-700 dark:text-gray-300">
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
+                <div class="order-1 lg:order-2">
+                    <div class="relative">
+                        <img src="assets/images/hero/dokter.png" alt="Health Professionals" class="w-full h-auto rounded-lg">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full"></div>
+                        <div class="absolute top-10 -left-6 w-4 h-4 bg-teal-400 rounded-full"></div>
+                        <div class="absolute -bottom-6 left-10 w-6 h-6 bg-red-400 rounded-full"></div>
                     </div>
                 </div>
-
-                <div id="aboutus" class="xl:pt-20 xl:pb-28 py-16 bg-gray-900 dark:bg-gray-900 text-white overflow-hidden">
-                    <div class="container mx-auto px-6 lg:px-24"> {{-- Increased horizontal padding significantly for text-only layout --}}
-                        <h1 class="text-4xl lg:text-5xl font-extrabold mb-10 text-center text-teal-400 dark:text-teal-300">Tentang NaviTal</h1>
-
-                        {{-- Menghapus grid dan kolom gambar, fokus pada satu kolom teks --}}
-                        <div class="max-w-3xl mx-auto space-y-8 text-center"> {{-- Centered text block, increased space-y for paragraphs --}}
-                            <p class="text-lg text-gray-200 leading-relaxed">
-                                Halo para pengguna NaviTal! Kami, tim di balik NaviTal, memahami betul betapa krusialnya <strong>akses cepat dan akurat ke layanan kesehatan</strong>, terutama dalam situasi mendesak. Di Bandung Raya, dengan banyaknya pilihan rumah sakit, mencari informasi yang lengkap, terkini, dan sesuai kebutuhan seringkali menjadi tantangan yang menghabiskan waktu, bahkan bisa berdampak pada keselamatan.
-                            </p>
-                            <p class="text-lg text-gray-200 leading-relaxed">
-                                Melihat urgensi tersebut, kami mengembangkan NaviTal. Aplikasi web ini hadir sebagai <strong>jembatan informasi yang menghubungkan Anda langsung dengan rumah sakit yang tepat</strong> di mana pun Anda berada di Bandung Raya. Kami telah berupaya keras mengumpulkan data rumah sakit secara detail, memungkinkan Anda mencari berdasarkan lokasi terdekat, ketersediaan IGD 24 jam, jenis layanan spesialis, atau fasilitas rawat inap/jalan yang Anda butuhkan.
-                            </p>
-                            <p class="text-lg text-gray-200 leading-relaxed">
-                                NaviTal tidak hanya menyediakan informasi, tetapi juga <strong>terintegrasi dengan peta navigasi</strong> untuk memandu Anda langsung ke tujuan tanpa hambatan. Kami percaya, dengan kemudahan ini, waktu yang sangat berharga dalam kondisi darurat dapat dimaksimalkan.
-                            </p>
-                            <p class="text-lg text-gray-200 leading-relaxed">
-                                Lebih dari sekadar aplikasi, NaviTal adalah wujud komitmen kami untuk mendukung peningkatan kualitas layanan kesehatan dan sejalan dengan <strong>Sustainable Development Goals (SDG) 3: Good Health and Well-Being</strong>, khususnya dalam memastikan akses kesehatan yang universal. Kami berharap, NaviTal dapat menjadi solusi yang efisien, cepat, dan handal bagi Anda semua.
-                            </p>
-
-                            <div class="mt-12"> {{-- Increased margin top for the button --}}
-                                <a href="{{ route('search') }}" class="inline-flex items-center justify-center px-10 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-xl hover:bg-teal-600 transition transform hover:scale-105 duration-300 ease-in-out border-2 border-teal-500 hover:border-teal-600">
-                                    Mulai Pencarian Sekarang!
-                                    <svg class="ms-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-16 pt-8 border-t border-gray-700 dark:border-gray-700 text-gray-400">
-                            <p class="text-lg">Terima kasih atas kepercayaan Anda menggunakan NaviTal. Kami akan terus berinovasi demi kesehatan dan kesejahteraan masyarakat.</p>
-                            <p class="text-lg mt-2 font-semibold text-teal-400">Salam hangat,<br>Tim Developer NaviTal</p>
-                        </div>
-                    </div>
-                </div>
-
-                        <div class="relative order-1 lg:order-2">
-                            <img src="assets/images/hero/dokter.png" alt="saas2" data-aos="fade-left"
-                                data-aos-duration="600">
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
-
     </section>
-    <!-- =========== feature Section end =========== -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Latest Listed Health Facility</h2>
+                <p class="text-gray-600">We're constantly adding new facilities to help you find the right healthcare.</p>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+                <div class="overflow-x-auto pb-6 mx-6 scrollbar-hide">
+                    <div class="flex space-x-6 min-w-max">
+                        @foreach($latestHospitals as $item)
+                            @php
+                                // Pastikan $item->name adalah string dan escape untuk atribut alt HTML
+                                $itemNameString = strval($item->name ?? 'Gambar Fasilitas Kesehatan');
+                                $altTextHtml = htmlspecialchars($itemNameString, ENT_QUOTES, 'UTF-8');
 
-    
-@endsection
+                                // Pastikan $item->thumbnail adalah string, default ke string kosong jika null
+                                $thumbnailNameString = strval($item->thumbnail ?? '');
+
+                                // Path utama menggunakan helper asset() Laravel
+                                // Hanya buat path jika thumbnailNameString tidak kosong
+                                $primarySrc = $thumbnailNameString ? asset($thumbnailNameString) : '';
+
+                                // Path fallback menggunakan Storage::url()
+                                // Hanya buat path jika thumbnailNameString tidak kosong
+                                $fallbackSrcUrl = $thumbnailNameString ? Storage::url($thumbnailNameString) : '';
+                                // Escape untuk string JavaScript
+                                $fallbackSrcForJs = str_replace("'", "\\'", str_replace("\\", "\\\\", $fallbackSrcUrl));
+
+                                // Escape alt text (yang sudah di-HTML-escape) untuk string JavaScript
+                                $altTextForJs = str_replace("'", "\\'", str_replace("\\", "\\\\", $altTextHtml));
+
+                                $now = strtotime(date('H:i:s'));
+                                $open = strtotime($item->open ?? '00:00:00'); // default jika null
+                                $close = strtotime($item->close ?? '00:00:00'); // default jika null
+                                
+                                $isOpen = false;
+                                if ($item->open && $item->close) { // Hanya cek jika open dan close time ada
+                                    $isOpen = $open < $close
+                                        ? ($now >= $open && $now <= $close) // Kasus normal: buka 08:00, tutup 17:00
+                                        : ($now >= $open || $now <= $close); // Kasus lewat tengah malam: buka 22:00, tutup 06:00
+                                }
+                            @endphp
+                            <div class="w-[300px] flex-none">
+                                @if($thumbnailNameString && $primarySrc)
+                                    <div class="w-full h-[200px] overflow-hidden rounded-md mb-5">
+                                        <img src="{{ $primarySrc }}" 
+                                             alt="{{ $altTextHtml }}"
+                                             class="w-full h-full object-cover"
+                                             onerror="this.onerror=null; if ('{{ $fallbackSrcForJs }}' !== '') { this.src='{{ $fallbackSrcForJs }}'; this.alt='{{ $altTextForJs }} (fallback)'; } else { this.alt='{{ $altTextForJs }} (gambar tidak tersedia)'; this.parentNode.innerHTML = '<div class=\'w-full h-full flex items-center justify-center bg-gray-100 text-gray-400\'><span class=\'text-xs\'>Gambar tidak dapat dimuat</span></div>'; }" />
+                                    </div>
+                                @else
+                                    <div class="w-full h-[200px] overflow-hidden rounded-md mb-5 flex items-center justify-center bg-gray-100">
+                                        <span class="text-gray-400">Gambar tidak tersedia</span>
+                                    </div>
+                                @endif
+
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="bg-blue-50 text-biru font-medium rounded-md text-xs py-1 px-2">
+                                        <a href="#">{{ $item->category->name ?? 'Tanpa Kategori' }}</a>
+                                    </span>
+
+                                    <div class="flex items-center gap-4">
+                                        @if ($item->open && $item->close)
+                                            @if ($isOpen)
+                                                <span class="text-sm font-semibold px-2 py-1 rounded bg-green-100 text-green-600">
+                                                    Open
+                                                </span>
+                                            @else
+                                                <span class="text-sm font-semibold px-2 py-1 rounded bg-red-100 text-red-600">
+                                                    Close
+                                                </span>
+                                            @endif
+                                        @else
+                                            <span class="text-sm font-semibold px-2 py-1 rounded bg-gray-100 text-gray-500">
+                                                N/A
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <h1 class="text-lg font-semibold my-3 transition-all text-biru hover:text-blue-800">
+                                    <a href="{{ route('detail', $item->slug) }}">
+                                        {{ $item->category->name ?? '' }} {{ $item->name }}
+                                    </a>
+                                </h1>
+                                <p class="text-sm/relaxed tracking-wider text-gray-500 truncate mb-2">
+                                    {{ $item->description ?? 'Deskripsi tidak tersedia.' }}
+                                </p>
+                                <a href="{{ route('detail', $item->slug) }}" class="text-biru font-bold text-sm hover:text-blue-800">
+                                    read more
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">OUR SERVICES</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">See Medicine Content</h3>
+                    <p class="text-gray-600">
+                    Akses informasi detail mengenai berbagai jenis obat, termasuk komposisi, dosis, efek samping, dan interaksi obat yang penting untuk Anda ketahui.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-teal-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Map Navigation</h3>
+                    <p class="text-gray-600">
+                    Temukan lokasi fasilitas kesehatan dengan mudah dan dapatkan panduan rute langsung ke tujuan Anda melalui peta interaktif kami.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Health Facilities in Bandung</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                @foreach($categoryCounts as $index => $categoryData)
+                    @php
+                        // Get random hospital from this category for thumbnail
+                        $randomHospital = \App\Models\Hospital::where('category_id', $categoryData['id'])
+                            ->inRandomOrder()
+                            ->first();
+                        
+                        // Determine size class based on index
+                        $sizeClass = match($index) {
+                            0 => 'row-span-2 col-span-1', // Apotek - Tall
+                            1 => 'col-span-1', // Posyandu - Normal
+                            2 => 'col-span-1', // Laboratorium - Normal
+                            3 => 'col-span-2', // Puskesmas - Wide
+                            4 => 'row-span-2 col-span-2', // Rumah Sakit - Large
+                            default => 'col-span-1'
+                        };
+                    @endphp
+                    
+                    <a href="{{ route('search', ['category_id' => $categoryData['id']]) }}" 
+                       class="group relative overflow-hidden rounded-2xl {{ $sizeClass }}">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all z-10"></div>
+                        
+                        @if($randomHospital && $randomHospital->thumbnail)
+                            <img src="{{ asset($randomHospital->thumbnail) }}" 
+                                 alt="{{ $categoryData['name'] }}"
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='{{ asset('assets/images/default-hospital.jpg') }}'"
+                            />
+                        @else
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-400">No image available</span>
+                            </div>
+                        @endif
+                        
+                        <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end text-white">
+                            <div class="text-4xl md:text-5xl font-bold mb-2">{{ $categoryData['count'] }}</div>
+                            <div class="text-lg md:text-xl font-medium">{{ $categoryData['name'] }}</div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8 text-teal-400">Tentang NaviTal</h2>
+            
+            <div class="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed text-gray-300 mb-12">
+                <p>
+                    Halo para pengguna NaviTal! Kami, tim di balik NaviTal, memahami betul betapa krusialnya <strong class="text-white">akses cepat dan akurat ke layanan kesehatan</strong>, terutama dalam situasi mendesak.
+                </p>
+                <p>
+                    NaviTal hadir sebagai <strong class="text-white">jembatan informasi yang menghubungkan Anda langsung dengan rumah sakit yang tepat</strong> di mana pun Anda berada di Bandung Raya.
+                </p>
+                <p>
+                    Lebih dari sekadar aplikasi, NaviTal adalah wujud komitmen kami untuk mendukung <strong class="text-white">Sustainable Development Goals (SDG) 3: Good Health and Well-Being</strong>.
+                </p>
+            </div>
+            
+            <a href="{{ route('search') }}" class="inline-flex items-center justify-center px-10 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-xl hover:bg-teal-600 transition transform hover:scale-105 duration-300">
+                Mulai Pencarian Sekarang!
+                <svg class="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            
+            <div class="mt-16 pt-8 border-t border-gray-700 text-gray-400">
+                <p class="text-lg">Terima kasih atas kepercayaan Anda menggunakan NaviTal.</p>
+                <p class="text-lg mt-2 font-semibold text-teal-400">Salam hangat,<br>Tim Developer NaviTal</p>
+            </div>
+        </div>
+    </section>
+    @endsection
 
 @push('after-style')
-@endpush
+<style>
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
-@push('after-script')
-    {{-- <script>
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
 
-                document.getElementById('latitude').value = latitude;
-                document.getElementById('longitude').value = longitude;
-
-                document.getElementById('serviceLatitude').value = latitude;
-                document.getElementById('serviceLongitude').value = longitude;
-
-            }, function(error) {
-                console.error('Error getting location:', error);
-            });
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
-    </script> --}}
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+</style>
 @endpush
